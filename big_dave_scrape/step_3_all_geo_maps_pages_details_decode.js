@@ -195,41 +195,18 @@ function fb(a, b, c) {
 var fs = require('fs');
 var glob = require("glob")
 
-glob("/Volumes/Lately/dave_scrape/dave_maps/*.json", {}, function (er, files) {
+glob("/Users/companjenba/surfdrive/Projecten/IIIF-Maps/klokan/georeferences/*.json", {}, function (er, files) {
 
-
-
-  files.forEach((f)=>{
-  	console.log(f)
+  files.forEach((f, i)=>{
+    console.log(i + ' ' + f)
+    var outFile = f.replace('georeferences', 'georeferences-decoded');
 
   	var data = JSON.parse(fs.readFileSync(f, 'utf8'));
+    fs.writeFileSync(outFile, JSON.stringify(davidrumseySux(data), null, 2));
 
-
-  	fs.appendFileSync('output.ndjson', JSON.stringify(davidrumseySux(data['geoData'])) + '\n');
-
+  	// fs.appendFileSync('output.ndjson', JSON.stringify(davidrumseySux(data)) + '\n');
 
   })
 
-
 })
-
-
-
-// 
-// var data = JSON.parse(fs.readFileSync('dave_scrape_with_dave_data.json', 'utf8'));
-
-
-// data.forEach((d)=>{
-
-//     if (d.daveData){
-//         d.daveData.geoDataDecoded = davidrumseySux(d.daveData.geoData)
-//     }
-// })
-
-
-
-// fs.writeFileSync('dave_data_final.json', JSON.stringify(data,null,2));
-
-
-
 
